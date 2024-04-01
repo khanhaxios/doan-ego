@@ -19,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -79,6 +81,12 @@ public class QuestionServiceImpl implements QuestionService {
     public ResponseEntity<?> destroy(Long aLong) throws Exception {
         Question question = questionRepository.findById(aLong).orElseThrow(() -> new Exception("Question not found"));
         Answer answer = question.getAnswer();
+        //remove question child
+        List<Question> children = question.getChildrenQuestion();
+        if (children.size() > 0) {
+            question.setChildrenQuestion(new ArrayList<>());
+            questionRepository.save(question);
+        }
         questionRepository.delete(question);
         if (answer != null) {
             answerRepository.deleteById(answer.getId());
