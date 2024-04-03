@@ -8,9 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TimeZone;
+import java.util.*;
 
 @Entity
 @Data
@@ -26,7 +24,7 @@ public class Exam {
     private LocalDateTime timeEnd;
 
     @OneToMany
-    private Set<Test> tests = new HashSet<>();
+    private List<Test> tests = new ArrayList<>();
 
     public long getTimeDuration() {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/HoChiMinh"));
