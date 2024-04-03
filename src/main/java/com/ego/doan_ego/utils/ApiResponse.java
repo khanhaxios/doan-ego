@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApiResponse {
+    public static ResponseEntity<?> tokenExpired() {
+        return new ResponseEntity<>("Access token expired , retry to login", HttpStatus.UNAUTHORIZED);
+    }
+
+    public static ResponseEntity<?> tokenNotvalid() {
+        return new ResponseEntity<>("Access token not valid format , retry to login", HttpStatus.UNAUTHORIZED);
+    }
+
     @Data
     static class Response {
         Object data;

@@ -17,7 +17,14 @@ public class CustomBeanUtils {
         Set<String> emptyNames = new HashSet<>();
         for (java.beans.PropertyDescriptor pd : pds) {
             Object srcValue = src.getPropertyValue(pd.getName());
-            if (srcValue == null) emptyNames.add(pd.getName());
+            if (srcValue instanceof Number) {
+                if (((Number) srcValue).intValue() == 0) {
+                    emptyNames.add(pd.getName());
+                }
+            }
+            if (srcValue == null) {
+                emptyNames.add(pd.getName());
+            }
         }
 
         String[] result = new String[emptyNames.size()];
