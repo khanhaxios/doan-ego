@@ -1,8 +1,6 @@
 package com.ego.doan_ego.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,6 +13,7 @@ import java.util.*;
 public class Exam {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -23,7 +22,7 @@ public class Exam {
 
     private LocalDateTime timeEnd;
 
-    @OneToMany
+    @ManyToMany
     private List<Test> tests = new ArrayList<>();
 
     public long getTimeDuration() {

@@ -1,11 +1,13 @@
 package com.ego.doan_ego.config;
 
+import com.ego.doan_ego.exceptions.DelegatedAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -28,6 +30,7 @@ import java.util.List;
 public class WebSecurityConfig {
     private final UserDetailsService jwtUserDetailsService;
 
+    private final DelegatedAuthenticationEntryPoint authenticationEntryPoint;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtRequestFilter jwtRequestFilter;
 
@@ -59,7 +62,8 @@ public class WebSecurityConfig {
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-                .userDetailsService(jwtUserDetailsService);
+                .userDetailsService(jwtUserDetailsService)
+                .exceptionHandling((a) -> a.authenticationEntryPoint(authenticationEntryPoint));
         return http.build();
     }
 

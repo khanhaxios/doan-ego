@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class ExamServiceImpl implements ExamService {
         Instant instant1 = Instant.ofEpochMilli(entity.getEndTime());
         exam.setTimeStart(ZonedDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDateTime());
         exam.setTimeEnd(ZonedDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDateTime());
-        return processExamRelation(entity, exam);
+        return processExamRelation(entity, examRepository.save(exam));
     }
 
     private ResponseEntity<?> processExamRelation(EditOrAddExamRequest request, Exam exam) {

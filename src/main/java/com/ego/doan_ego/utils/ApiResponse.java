@@ -16,6 +16,10 @@ public class ApiResponse {
         return new ResponseEntity<>("Access token not valid format , retry to login", HttpStatus.UNAUTHORIZED);
     }
 
+    public static ResponseEntity<?> unAuthorized() {
+        return new ResponseEntity<>("Authentication failed , check auth token null or error", HttpStatus.UNAUTHORIZED);
+    }
+
     @Data
     static class Response {
         Object data;

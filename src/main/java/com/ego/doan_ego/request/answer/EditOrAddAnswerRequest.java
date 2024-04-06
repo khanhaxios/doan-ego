@@ -10,4 +10,5 @@ public class EditOrAddAnswerRequest extends AnswerRequest {
 
     private boolean isDefaultAnswer;
 
+    private Long questionId;
 }

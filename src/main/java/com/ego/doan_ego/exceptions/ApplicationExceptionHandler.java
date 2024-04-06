@@ -6,6 +6,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,17 +17,19 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(ExpiredJwtException.class)
     @ResponseBody
-    public ResponseEntity<?> handleJwtExpired(ExpiredJwtException e){
+    public ResponseEntity<?> handleJwtExpired(ExpiredJwtException e) {
         return ApiResponse.tokenExpired();
     }
+
     @ExceptionHandler(MalformedJwtException.class)
     @ResponseBody
-    public ResponseEntity<?> handleJwtNotValid(MalformedJwtException e){
+    public ResponseEntity<?> handleJwtNotValid(MalformedJwtException e) {
         return ApiResponse.tokenNotvalid();
     }
+
     @ExceptionHandler(io.jsonwebtoken.SignatureException.class)
     @ResponseBody
-    public ResponseEntity<?> handleJwtNotValid(SignatureException e){
+    public ResponseEntity<?> handleJwtNotValid(SignatureException e) {
         return ApiResponse.tokenNotvalid();
     }
 
@@ -34,6 +37,12 @@ public class ApplicationExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException exception) {
         return ApiResponse.accessDenied();
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseBody
+    public ResponseEntity<?> handleAuthenticationException(org.springframework.security.core.AuthenticationException exception) {
+        return ApiResponse.unAuthorized();
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)

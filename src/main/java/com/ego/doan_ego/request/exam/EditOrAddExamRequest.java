@@ -11,6 +11,6 @@ public class EditOrAddExamRequest extends ExamRequest {
     private long startTime;
 
     private long endTime;
-    private Set<String> testIds = new HashSet<>();
+    private Set<String> testIds;
 
 }

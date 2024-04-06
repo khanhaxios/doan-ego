@@ -10,7 +10,7 @@ import lombok.Data;
 public class Answer {
 
     @jakarta.persistence.Id
-    @GeneratedValue(strategy =GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
     @Column(columnDefinition = "TEXT")
@@ -18,5 +18,6 @@ public class Answer {
 
     private boolean isDefaultAnswer;
 
+    private Long questionId;
     private boolean isCorrect;
 }
