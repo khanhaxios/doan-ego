@@ -54,7 +54,7 @@ public class QuestionController implements IBaseController<QuestionRequest, Edit
     }
 
     @GetMapping("/by-type/{typeId}")
-    public ResponseEntity<?> getAllByType(@PathVariable(name = "typeId") Long Id, @PathVariable String typeId) {
+    public ResponseEntity<?> getAllByType(@PathVariable(name = "typeId") Long Id) {
         try {
             return questionService.getByType(Id);
         } catch (Exception e) {
