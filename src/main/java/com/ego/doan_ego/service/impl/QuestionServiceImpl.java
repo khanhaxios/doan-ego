@@ -103,4 +103,9 @@ public class QuestionServiceImpl implements QuestionService {
     public ResponseEntity<?> getById(Long aLong) throws Exception {
         return ApiResponse.success(questionRepository.findById(aLong).orElseThrow(() -> new Exception("Question not found")));
     }
+
+    @Override
+    public ResponseEntity<?> getByType(Long typeId) throws Exception {
+        return ApiResponse.success(questionRepository.findAllByQuestionType(questionTypeRepository.findById(typeId).orElseThrow(() -> new Exception("Question type not found by id " + typeId))));
+    }
 }

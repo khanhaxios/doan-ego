@@ -53,6 +53,15 @@ public class QuestionController implements IBaseController<QuestionRequest, Edit
         }
     }
 
+    @GetMapping("/by-type/{typeId}")
+    public ResponseEntity<?> getAllByType(@PathVariable(name = "typeId") Long Id, @PathVariable String typeId) {
+        try {
+            return questionService.getByType(Id);
+        } catch (Exception e) {
+            return ApiResponse.fallback(e.getMessage());
+        }
+    }
+
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @DeleteMapping("/{id}")
     @Override
