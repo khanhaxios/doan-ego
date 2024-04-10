@@ -4,6 +4,7 @@ import com.ego.doan_ego.request.user.UpdateUserProfileRequest;
 import com.ego.doan_ego.response.BaseResponse;
 import com.ego.doan_ego.service.interfaceService.UserService;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
     @PutMapping("/update")
-    public BaseResponse<?> updateUserProfile(UpdateUserProfileRequest request){
+    public BaseResponse<?> updateUserProfile(@RequestBody UpdateUserProfileRequest request){
         return userService.updateUserProfile(request);
     }
 }
